@@ -1,0 +1,13 @@
+grafana:
+  adminUser: admin
+  adminPassword: password
+
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          access: proxy
+          url: http://prometheus-server
+          isDefault: true
