@@ -30,13 +30,20 @@ kubectl apply -f k8s/deployments/
 kubectl apply -f k8s/services/
 
 #Grafana dashboard
-kubectl wait --for=condition=ready pod -l app.kubernetes.io/instance=grafana -n monitoring --timeout=120s
-kubectl port-forward svc/grafana -n monitoring 3000:80 &
+echo "Waiting for Grafana..."
+kubectl wait \
+  --for=condition=ready \
+  pod -l app.kubernetes.io/instance=grafana \
+  -n monitoring \
+  --timeout=120s
 
-echo "Printing grafana dashboard password:"
-echo ""
-kubectl get secret grafana -o jsonpath='{.data.admin-password}' -n monitoring | base64 --decode
+echo "Starting Grafana..."
+kubectl port-forward svc/grafana -n monitoring 3000:80 >/tmp/grafana.log 2>&1 &
 
-echo "Opening Api"
+echo "Grafana:"
+echo "http://localhost:3000"
 
-minikube service api
+MINIKUBE_IP=$(minikube ip)
+
+echo "Swagger: http://localhost/swagger"
+kubectl port-forward svc/api 8080:80

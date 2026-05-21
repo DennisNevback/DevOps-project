@@ -23,9 +23,9 @@ The goal of this project is to showcase practical DevOps skills in a realistic e
 ## ⚡ Quick Start
 
 ```bash
-git clone <your-repo-url>
-cd devops-platform
-./scripts/start.sh
+git clone https://github.com/DennisNevback/DevOps-project
+cd scripts
+./demo.sh
 ```
 
 ---
@@ -42,6 +42,8 @@ The startup script will automatically:
 - Set up Grafana dashboards
 - Expose application endpoints
 
+The grafana dashboard can be found on port 3000
+
 ---
 
 ## 🌐 Accessing the Services
@@ -53,14 +55,16 @@ After the script completes:
 Accessible via:
 
 ```bash
-minikube service api
+URL=$(minikube service api --url)
+echo "Swagger: $URL/swagger"
+xdg-open "$URL/swagger" 2>/dev/null || true
 ```
 
 ### Grafana
 
 - URL: http://localhost:3000
 - Username: `admin`
-- Password: printed in terminal output
+- Password: `password`
 
 ---
 
