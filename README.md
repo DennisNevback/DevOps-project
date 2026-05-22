@@ -16,7 +16,7 @@ This is an end-to-end DevOps demo project featuring:
 - Infrastructure managed via Helm and Kubernetes manifests
 - One-command environment setup
 
-The goal of this project is to showcase practical DevOps skills in a realistic environment.
+The goal of this project is to showcase practical DevOps skills.
 
 ---
 
@@ -39,34 +39,9 @@ The startup script will automatically:
 - Deploy services to Kubernetes
 - Install monitoring stack using Helm
 - Configure Prometheus for metrics collection
-- Set up Grafana dashboards
 - Expose application endpoints
 
 The grafana dashboard can be found on port 3000
-
----
-
-## 🌐 Accessing the Services
-
-After the script completes:
-
-### API
-
-Accessible via:
-
-```bash
-URL=$(minikube service api --url)
-echo "Swagger: $URL/swagger"
-xdg-open "$URL/swagger" 2>/dev/null || true
-```
-
-### Grafana
-
-- URL: http://localhost:3000
-- Username: `admin`
-- Password: `password`
-
----
 
 ## 🏗️ Architecture
 
@@ -91,13 +66,7 @@ Kubernetes resources include:
 
 - Application exposes metrics via `/metrics`
 - Metrics are scraped by Prometheus
-- Dashboards are visualized in Grafana
-
-> Add screenshots here:
->
-> - Grafana dashboard
-> - Running pods (`kubectl get pods`)
-> - API response
+- Dashboards can be visualized in Grafana
 
 ---
 

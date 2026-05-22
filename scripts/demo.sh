@@ -40,10 +40,12 @@ kubectl wait \
 echo "Starting Grafana..."
 kubectl port-forward svc/grafana -n monitoring 3000:80 >/tmp/grafana.log 2>&1 &
 
-echo "Grafana:"
+echo "Grafana dashboard:"
 echo "http://localhost:3000"
 
 MINIKUBE_IP=$(minikube ip)
 
-echo "Swagger: http://localhost/swagger"
-kubectl port-forward svc/api 8080:80
+echo "Swagger endpoint */swagger"
+echo "Api endpoint /api/worldcity"
+echo "api:"
+minikube service api --url
