@@ -27,7 +27,7 @@ jobs:
           ls -R apps
 
       - name: build docker image
-        run: docker build -t api:dev -f /home/runner/work/DevOps-project/DevOps-project/apps/api/api/Dockerfile apps/api
+        run: docker build -t api:dev -f apps/api/api/Dockerfile apps/api
 
       - name: Create Kind cluster
         uses: helm/kind-action@v1
