@@ -22,8 +22,7 @@ jobs:
 
       - name: Debug repo structure
         run: |
-          find . -type f | grep dockerfile
-          find . -type d | sort
+          ls -R apps
 
       - name: build docker image
         run: docker build -t api:dev -f /home/runner/work/DevOps-project/DevOps-project/apps/api/api/Dockerfile apps/api
