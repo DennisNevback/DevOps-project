@@ -20,7 +20,7 @@ jobs:
           docker --version
           kubectl version --client
 
-      - name: build docker image
+      - name: Build API image
         run: docker build -t api:dev -f apps/api/api/dockerfile apps/api
 
       - name: Create Kind cluster
@@ -63,9 +63,11 @@ jobs:
           kubectl get pods -A
           kubectl get svc -A
 
-      - name: Forward port API
-        run: kubectl port-forward svc/api 8080:80
-        #localhost 8080
+      - name: Port forward
+        run: |
+          kubectl port-forward svc/api 8080:80 &
+          sleep 5
+        # & allows us to continue the script - otherwise it gets stuck
 
       - name: Create world city
         run: |
