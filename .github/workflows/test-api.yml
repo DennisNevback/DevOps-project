@@ -14,8 +14,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
-        with:
-          submodules: true
 
       - name: Verify tools
         run: |
@@ -46,3 +44,21 @@ jobs:
 
       - name: List pods
         run: kubectl get pods -A
+
+      - name: Wait for api
+        run: kubectl wait --for=condition=available deployment/api --timeout=120s
+
+      - name: Forward port API
+        run: kubectl port-forward svc/api 8080:80
+        #localhost 8080
+
+      - name: Create world city
+        run: |
+          curl -X POST http://localhost:8080/api/worldcity \
+          -H "Content-Type: application/json" \
+          -d '{"city":"Malmö", "country":"Sweden", "population":350000}'
+
+      - name: Get world city
+        run: |
+          response=$(curl -s http://localhost:8080/api/worldcity/Malmö)
+          echo "$response
