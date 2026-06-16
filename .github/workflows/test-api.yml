@@ -42,11 +42,13 @@ jobs:
           kubectl apply -f k8s/deployments/api.yml
           kubectl apply -f k8s/services/api-svc.yml
 
-      - name: List pods
-        run: kubectl get pods -A
-
       - name: Wait for api
-        run: kubectl wait --for=condition=available deployment/api --timeout=120s
+        run: kubectl wait --for=condition=Ready deployment/api --timeout=120s
+
+      - name: List pods & services
+        run: |
+          kubectl get pods -A
+          kubectl get svc -A
 
       - name: Forward port API
         run: kubectl port-forward svc/api 8080:80
