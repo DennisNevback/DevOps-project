@@ -37,13 +37,26 @@ jobs:
           kubectl apply -f k8s/deployments/database.yml
           kubectl apply -f k8s/services/database-svc.yml
 
+      - name: Wait for pod db
+        run: |
+          kubectl wait \
+            --for=condition=Ready \
+            pod \
+            -l app=db \
+            --timeout=120s
+
       - name: Deploy api
         run: |
           kubectl apply -f k8s/deployments/api.yml
           kubectl apply -f k8s/services/api-svc.yml
 
-      - name: Wait for api
-        run: kubectl wait --for=condition=Ready deployment/api --timeout=120s
+      - name: Wait for pod API
+        run: |
+          kubectl wait \
+            --for=condition=Ready \
+            pod \
+            -l app=api \
+            --timeout=120s
 
       - name: List pods & services
         run: |
