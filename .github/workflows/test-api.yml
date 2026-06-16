@@ -78,4 +78,4 @@ jobs:
       - name: Get world city
         run: |
           response=$(curl -s http://localhost:8080/api/worldcity/1)
-          echo "$response
+          echo "$response"
