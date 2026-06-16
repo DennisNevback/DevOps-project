@@ -1,3 +1,5 @@
+[![Validate API](https://github.com/DennisNevback/DevOps-project/actions/workflows/test-api.yml/badge.svg)](https://github.com/DennisNevback/DevOps-project/actions/workflows/test-api.yml)
+
 # 🚀 DevOps Platform Demo
 
 A portfolio project demonstrating containerization, Kubernetes deployments, monitoring, and automated validation using GitHub Actions.
