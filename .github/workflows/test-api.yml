@@ -1,4 +1,4 @@
-name: Octo Organization CI
+name: Validate API
 
 on:
   push:
@@ -12,7 +12,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - name: Checkout repository
+        uses: actions/checkout@v6
 
-      - name: Run a one-line script
-        run: echo Hello from Test
+      - name: Verify tools
+        run: |
+          docker --version
+          kubectl version --client
+
+      - name: build docker image
+        run: docker build -t api:dev -f apps/api/api/Dockerfile apps/api
+
+      - name: Create Kind cluster
+        uses: helm/kind-action@v1
+
+      - name: Make image available for kind
+        run: kind load docker-image api:dev
+
+      - name: Deploy database
+        run: |
+          kubectl apply -f k8s/secrets/
+          kubectl apply -f k8s/deployments/database.yml
+          kubectl apply -f k8s/services/database-svc.yml
+
+      - name: Deploy api
+        run: |
+          kubectl apply -f k8s/deployments/api.yml
+          kubectl apply -f k8s/services/api-svc.yml
+
+      - name: List pods
+        run: kubectl get pods -A
