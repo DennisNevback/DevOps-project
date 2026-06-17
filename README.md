@@ -6,6 +6,12 @@ A portfolio project demonstrating containerization, Kubernetes deployments, moni
 
 ---
 
+## Observability Dashboard
+
+The platform includes a Grafana dashboard showing API traffic and latency.
+
+![API Observability Dashboard](docs/images/grafana-dashboard.jpg)
+
 ## 🧩 Overview
 
 This project showcases a complete DevOps workflow built around a containerized .NET API running on Kubernetes.
