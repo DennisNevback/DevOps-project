@@ -45,6 +45,7 @@ The startup script will:
 - Build required Docker images
 - Deploy the application to Kubernetes
 - Install Prometheus and Grafana using Helm
+- Automatically provision Grafana dashboards for observability
 - Configure monitoring components
 
 Grafana is available on port `3000`.
