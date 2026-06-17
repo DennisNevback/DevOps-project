@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-dashboard
+  namespace: monitoring
+  labels:
+    grafana_dashboard: "1"
+data:
+  api-dashboard.json: |
+{{ .Files.Get "dashboards/api-dashboard.json" | nindent 4 }}

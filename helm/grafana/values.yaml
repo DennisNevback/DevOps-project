@@ -11,3 +11,8 @@ grafana:
           access: proxy
           url: http://prometheus-server
           isDefault: true
+
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
