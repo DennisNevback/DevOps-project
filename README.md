@@ -24,14 +24,14 @@ The platform demonstrates a modern Kubernetes-based architecture including GitOp
 
 The platform includes:
 
-A containerized .NET API
-SQL Server running in Kubernetes
-Kubernetes deployments and services
-GitOps tooling with ArgoCD (installed)
-Ingress routing using Traefik (IngressRoute CRDs)
-Monitoring with Prometheus and Grafana
-Automated local environment setup via script
-Automated validation using GitHub Actions
+- A containerized .NET API
+- SQL Server running in Kubernetes
+- Kubernetes deployments and services
+- GitOps tooling with ArgoCD (installed)
+- Ingress routing using Traefik (IngressRoute CRDs)
+- Monitoring with Prometheus and Grafana
+- Automated local environment setup via script
+- Automated validation using GitHub Actions
 
 The goal of the project is to demonstrate practical DevOps and platform engineering concepts using modern cloud-native tooling.
 
@@ -56,19 +56,17 @@ The startup script will:
 - Automatically provision Grafana dashboards for observability
 - Configure monitoring components
 
-Grafana is available on port `3000`.
-
 ---
 
 🌐 Access the Platform
 
 Once running, all services are exposed through Traefik:
 
-Grafana → http://localhost:8080/grafana
-ArgoCD → http://localhost:8080/argocd
-Traefik Dashboard → http://localhost:8080/dashboard
-API Swagger → http://localhost:8080/swagger
-API Endpoint → http://localhost:8080/api/worldcity
+- Grafana → http://localhost:8080/grafana
+- ArgoCD → http://localhost:8080/argocd
+- Traefik Dashboard → http://localhost:8080/dashboard
+- API Swagger → http://localhost:8080/swagger
+- API Endpoint → http://localhost:8080/api/worldcity
 
 All routing is handled via Traefik IngressRoute CRDs (no NodePorts required for application services).
 
