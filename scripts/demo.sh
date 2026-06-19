@@ -21,6 +21,14 @@ cd "$ROOT_DIR/helm/grafana"
 helm dependency update
 helm upgrade --install grafana . -f values.yaml -n monitoring
 
+cd "$ROOT_DIR/helm/traefik"
+helm dependency update
+helm upgrade --install traefik . -n traefik -f values.yaml --create-namespace
+
+cd "$ROOT_DIR/helm/argocd"
+helm dependency update
+helm upgrade --install argocd . -n argocd -f values.yaml --create-namespace
+
 cd "$ROOT_DIR"
 
 echo "Deploying to Kubernetes..."
@@ -28,6 +36,7 @@ echo "Deploying to Kubernetes..."
 kubectl apply -f k8s/secrets/
 kubectl apply -f k8s/deployments/
 kubectl apply -f k8s/services/
+kubectl apply -f k8s/ingress/
 
 #Grafana dashboard
 echo "Waiting for Grafana..."
@@ -37,15 +46,18 @@ kubectl wait \
   -n monitoring \
   --timeout=120s
 
-echo "Starting Grafana..."
-kubectl port-forward svc/grafana -n monitoring 3000:80 >/tmp/grafana.log 2>&1 &
+echo "Open traefik port."
+kubectl port-forward svc/traefik -n traefik 8080:80 >/tmp/traefik.log 2>&1 &
 
 echo "Grafana dashboard:"
-echo "http://localhost:3000"
+echo "http://localhost:8080/grafana/"
 
-MINIKUBE_IP=$(minikube ip)
+echo "Traefik dashboard:"
+echo "http://localhost:8080/dashboard/"
 
-echo "Swagger endpoint */swagger"
+echo "ArgoCD dashboard:"
+echo "http://localhost:8080/argocd/"
+
+echo "Swagger dashboard:"
+echo "http://localhost:8080/swagger"
 echo "Api endpoint /api/worldcity"
-echo "api:"
-minikube service api --url
