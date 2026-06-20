@@ -27,16 +27,8 @@ helm upgrade --install traefik . -n traefik -f values.yaml --create-namespace
 
 cd "$ROOT_DIR/helm/argocd"
 helm dependency update
+kubectl apply -f argo-secret.yaml
 helm upgrade --install argocd . -n argocd -f values.yaml --create-namespace
-
-cd "$ROOT_DIR"
-
-echo "Deploying to Kubernetes..."
-
-kubectl apply -f k8s/secrets/
-kubectl apply -f k8s/deployments/
-kubectl apply -f k8s/services/
-kubectl apply -f k8s/ingress/
 
 #Grafana dashboard
 echo "Waiting for Grafana..."
@@ -45,6 +37,16 @@ kubectl wait \
   pod -l app.kubernetes.io/instance=grafana \
   -n monitoring \
   --timeout=120s
+
+echo "Deploying to Kubernetes..."
+
+#kubectl apply -f k8s/secrets/
+#kubectl apply -f k8s/deployments/
+#kubectl apply -f k8s/services/
+#kubectl apply -f k8s/ingress/
+cd "$ROOT_DIR/helm/argocd"
+kubectl apply -f infra-application.yaml
+kubectl apply -f api-application.yaml
 
 echo "Open traefik port."
 kubectl port-forward svc/traefik -n traefik 8080:80 >/tmp/traefik.log 2>&1 &
