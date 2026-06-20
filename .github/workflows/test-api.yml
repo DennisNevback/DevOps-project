@@ -33,9 +33,9 @@ jobs:
 
       - name: Deploy database
         run: |
-          kubectl apply -f k8s/secrets/
-          kubectl apply -f k8s/deployments/database.yml
-          kubectl apply -f k8s/services/database-svc.yml
+          kubectl apply -f k8s/apps/secrets/
+          kubectl apply -f k8s/apps/deployments/database.yml
+          kubectl apply -f k8s/apps/services/database-svc.yml
 
       - name: Wait for pod db
         run: |
@@ -47,8 +47,8 @@ jobs:
 
       - name: Deploy api
         run: |
-          kubectl apply -f k8s/deployments/api.yml
-          kubectl apply -f k8s/services/api-svc.yml
+          kubectl apply -f k8s/apps/deployments/api.yml
+          kubectl apply -f k8s/apps/services/api-svc.yml
 
       - name: Wait for pod API
         run: |
