@@ -6,3 +6,6 @@ argo-cd:
   configs:
     params:
       server.insecure: true
+    secret:
+      createSecret: false
+      existingSecret: argocd-admin-secret
